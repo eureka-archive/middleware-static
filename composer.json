@@ -1,0 +1,21 @@
+{
+  "name": "eureka/middleware-static",
+  "description": "Middleware to generate/render static contents.",
+  "type": "library",
+  "license": "MIT",
+
+  "authors": [
+    {
+      "name": "Romain Cottard",
+      "role": "Developer"
+    }
+
+  ],
+
+  "autoload": {
+    "psr-4": {
+      "Eureka\\Middleware\\": "./src"
+    }
+  }
+
+}
