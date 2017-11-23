@@ -105,8 +105,24 @@ abstract class StaticMiddlewareAbstract implements ServerMiddlewareInterface
         $type     = $matches[5];
         $filename = $matches[6];
 
-        $basePath = $this->config->get('global.dir.root') . '/vendor/eureka';
-        $file     = $basePath . '/theme-' . $theme . '-' . $package . '/src/static/' . $module . '/' . $type . '/' . $filename . '.' . $ext;
+        $basePath   = $this->config->get('global.dir.root') . '/vendor/eureka';
+        $staticPath = '';//$this->config->get('global.theme.static.path');
+
+        $replace = [
+            '{BASE}'     => $basePath,
+            '{THEME}'    => $theme,
+            '{PACKAGE}'  => $package,
+            '{MODULE}'   => $module,
+            '{TYPE}'     => $type,
+            '{FILENAME}' => $filename,
+            '{EXT}'      => $ext,
+        ];
+
+        if (empty($staticPath)) {
+            $file = $basePath . '{BASE}/theme-{THEME}-{PACKAGE}/src/static/{MODULE}/{TYPE}/{FILENAME}.{EXT}';
+        }
+
+        $file = str_replace(array_keys($replace), $replace, $staticPath);
 
         if (!file_exists($file)) {
             throw new \Exception('File does not exists ! (file: ' . $file . ')');
